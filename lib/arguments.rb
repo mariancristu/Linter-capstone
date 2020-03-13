@@ -1,72 +1,74 @@
 require 'yaml'
 
 class Arguments
-    attr_accessor :arguments, :files
-    @priv_files = nil
-    @initial_settings = nil
+  attr_accessor :arguments, :files
+  @priv_files = nil
+  @initial_settings = nil
+  @fi = nil
 
-    def initialize(args)
-        @arguments = args
-        @valid_args = {
-            init: 'initMethod',
-            all: 'getAllFiles'
-        }
-        @files = []
-        @priv_files = []
-        @initial_settings = createSettings
+  def initialize(args)
+    @arguments = args
+    @valid_args = {
+      init: 'init_method',
+      all: 'all_files'
+    }
+    @files = []
+    @priv_files = []
+    @initial_settings = create_settings
+    @fi = 'jslint.yml'
+  end
+
+  def check_arguments
+    raise ArgumentError, 'Please use al least one argument!' if @arguments.empty?
+
+    @arguments.each do |arg|
+      send(@valid_args[arg.to_sym]) if check(arg)
     end
 
-    def check_arguments
-        if @arguments.length != 0
-        @arguments.each do |arg|
-            send(@valid_args[arg.to_sym]) if check(arg)
-        end
+    unless @priv_files.empty?
+      @priv_files.each do |file|
+        return "#{file} not found!" unless file_check(file)
 
-        unless @priv_files.empty?
-            @priv_files.each do |file|
-                return "#{file} not found!" unless file_check(file)
-                @files << file
-            end
-        end
-        return true
-    else
-        raise ArgumentError, "Please use al least one argument!"
+        @files << file
+      end
     end
-    end
+    true
+  end
 
-    protected
-    def check(arg)
-        sim = arg.gsub(/^\./,'')
-        return true if @valid_args.has_key? sim.to_sym
-        @priv_files << arg
-        false
-    end
+  protected
 
-    def file_check(arg)
-        File.exist?(arg)
-    end
+  def check(arg)
+    sim = arg.gsub(/^\./, '')
+    return true if @valid_args.key? sim.to_sym
 
-    def initMethod
-        File.open('jslint.yml','w') { |f|
-            f.write(@initial_settings.to_yaml)
-        }
-    end
+    @priv_files << arg
+    false
+  end
 
-    def getAllFiles
-        if File.exist?("jslint.yml") 
-            @files << Dir.glob("#{Dir.getwd}/***/*.js") 
-        else
-            raise Exception, "Configuration file inexistent please run 'jslint init' first"   
-        end
-    end
+  def file_check(arg)
+    File.exist?(arg)
+  end
 
-    private
-    def createSettings
-        temp = {
-            indentation: 2,
-            variableNotUsed: true,
-            whiteSpace: true
-        }
-        temp
+  def init_method
+    File.open(@fi, 'w') do |f|
+      f.write(@initial_settings.to_yaml)
     end
+  end
+
+  def all_files
+    raise ArgumentError, 'Configuration file inexistent please run \'jslint init\' first' unless File.exist?(@fi)
+
+    @files << Dir.glob("#{Dir.getwd}/***/*.js")
+  end
+
+  private
+
+  def create_settings
+    temp = {
+      indentation: 2,
+      variableNotUsed: true,
+      whiteSpace: true
+    }
+    temp
+  end
 end
