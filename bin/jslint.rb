@@ -11,15 +11,40 @@ errors = []
 begin
   result = argument.check_arguments
   # puts result == true ? argument.files : result
-  linters = Loader.create_linters
   argument.files.each do |file|
-    File.open(file).each do |line|
+    linters = Loader.create_linters
+    File.open(file).each_with_index do |line, index|
       #Aici se instampla totul
+      # p index
       linters.each do |lint|
-        lint.check(line)
+        unless lint.check(line, index)
+          errors << ErrorHolder.new(file, lint, index, line, lint.expe, lint.actual)
+        end
       end
     end
   end
 rescue ArgumentError => e
-  puts e.full_message
+  puts e.full_message 
 end
+
+errors.each do |x|
+  puts x.actual
+end
+
+# p a = []
+
+# a[0] = {}
+
+# p a[0] = {eu:4}
+# p a[0][:tu]= 4
+
+# p a[0]
+
+# p "this.height = pulacxxcxc;".match(/\w+\.\w+\s*=\s*\w+/)
+
+# a =  "this.height = pula;".split('=').map(&:strip)
+# b = a.select do |x|
+#   !x.include? '.'
+# end
+
+# p b

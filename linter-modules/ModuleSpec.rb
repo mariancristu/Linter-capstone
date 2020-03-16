@@ -1,15 +1,20 @@
 module Loader
     class ModuleSpec
-        attr_accessor :value
-        @line = nil
+        attr_accessor :value, :expe, :actual 
+
+        @@reserved_words = [
+            'class',
+            'function',
+            'static',
+            'constructor'
+        ]
 
         def initialize(value)
             @value = value
-            @line = ''
         end
 
-        def check(value)
-            @line = value
+        def check(line, *args)
+            true
         end
     end
 end
