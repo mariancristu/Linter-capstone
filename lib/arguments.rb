@@ -46,7 +46,7 @@ class Arguments
   end
 
   def file_check(arg)
-    File.exist?(arg)
+    File.exist?(arg) && (File.extname(arg) == '.js')
   end
 
   def init_method
@@ -58,7 +58,9 @@ class Arguments
   def all_files
     raise ArgumentError, 'Configuration file inexistent please run \'jslint init\' first' unless File.exist?(@fi)
 
-    @files << Dir.glob("#{Dir.getwd}/***/*.js")
+    Dir.glob("#{Dir.getwd}/***/*.js").each do |file|
+      @files << file
+    end
   end
 
   private
