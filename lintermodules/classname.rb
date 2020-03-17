@@ -18,7 +18,6 @@ module Loader
       if check_keyword(line)
         name = extract_name(line)[0]
         l_case = name.match(/^[A-Z]/)
-        # return name.nil? ? false : true
         if l_case.nil?
           @actual = name
           @expe = name.capitalize
