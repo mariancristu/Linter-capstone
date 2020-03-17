@@ -1,4 +1,5 @@
 ---
-:indentation: 2
-:variableNotUsed: true
-:whiteSpace: true
+:Indentation: 2
+:VariableNotUsed: true
+:MaxLength: 120
+:ClassName: true
