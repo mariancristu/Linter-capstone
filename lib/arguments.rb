@@ -67,8 +67,8 @@ class Arguments
 
   def create_settings
     temp = {
-      indentation: 2,
-      variableNotUsed: true,
+      Indentation: 2,
+      VariableNotUsed: true,
       MaxLength: 120,
       ClassName: true
     }

@@ -87,7 +87,7 @@ def start(callback, on_linter_created, on_files_load)
     puts ''
     callback.call(errors)
   rescue ArgumentError => e
-    puts e.full_message
+    puts e.message.red
   end
 end
 

@@ -1,5 +1,5 @@
-require_relative '../linter-modules/modulespec.rb'
-Dir['linter-modules/*.rb'].each { |file| require_relative "../linter-modules/#{File.basename(file)}" }
+require_relative '../lintermodules/modulespec.rb'
+Dir['lintermodules/*.rb'].each { |file| require_relative "../lintermodules/#{File.basename(file)}" }
 require 'yaml'
 
 module Loader
