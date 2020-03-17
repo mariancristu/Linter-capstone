@@ -23,6 +23,8 @@ Metrics/CyclomaticComplexity:
   Max: 20
 Metrics/PerceivedComplexity:
   Max: 20
+Metrics/ParameterLists:
+  Max: 7
 
 Style/Documentation:
   Enabled: false
@@ -44,3 +46,6 @@ Layout/ExtraSpacing:
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+
+Security/YAMLLoad:
+  Enabled: false
