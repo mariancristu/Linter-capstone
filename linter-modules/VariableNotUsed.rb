@@ -12,7 +12,11 @@ module Loader
         end
 
         def check(line,*args)
-            start(line, args)
+            value ? start(line, args) : true
+        end
+
+        def get_name
+            "VariableNotUsed"
         end
 
         protected
@@ -63,7 +67,7 @@ module Loader
                 pass_error
                 @variable.delete_at(@counter)
                 @counter -= 1 unless @counter < 1
-                return false unless @expe.empty?
+                return false unless @actual.empty?
             end
             true
         end
@@ -81,9 +85,7 @@ module Loader
                            end
                         end
                     end
- 
                     @variable[@variable.length-1][y] = args[0] if (temp == false) && !(args.empty?)
- 
                 end
             end
             
@@ -93,7 +95,7 @@ module Loader
             @expe = []
             @actual = []
             @variable[@counter].each do |h|
-                    @actual << [h[0], h[1]] if h[1].to_i >= 0
+                    @actual << [h[0], h[1].to_i + 1] if h[1].to_i >= 0
                     @expe << 'not used'
             end
         end

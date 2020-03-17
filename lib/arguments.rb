@@ -69,7 +69,8 @@ class Arguments
     temp = {
       indentation: 2,
       variableNotUsed: true,
-      whiteSpace: true
+      MaxLength: 120,
+      ClassName: true
     }
     temp
   end

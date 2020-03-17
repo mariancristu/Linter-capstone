@@ -1,9 +1,6 @@
 class Rectangle {
-  pula = 5
   constructor(height, width) {
-    this.height = width;
+    this.height = height;
     this.width = width;
   }
-
-  fddff = 'ceva';
 }
