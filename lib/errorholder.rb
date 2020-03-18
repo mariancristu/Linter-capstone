@@ -1,5 +1,5 @@
 class ErrorHolder
-  attr_accessor :filename, :linter_name, :line_nr, :line_text, :column, :expe, :actual
+  attr_reader :filename, :linter_name, :line_nr, :line_text, :column, :expe, :actual
 
   def initialize(f_name, l_name, l_nr, l_text, expe, actual, l_col = 0)
     @filename = f_name

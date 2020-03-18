@@ -1,7 +1,7 @@
 require 'yaml'
 
 class Arguments
-  attr_accessor :arguments, :files
+  attr_reader :arguments, :files
   @priv_files = nil
   @initial_settings = nil
   @fi = nil

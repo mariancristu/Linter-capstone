@@ -1,6 +1,6 @@
 module Loader
   class ModuleSpec
-    attr_accessor :value, :expe, :actual
+    attr_reader :value, :expe, :actual
 
     @reserved_words = %w[
       class
